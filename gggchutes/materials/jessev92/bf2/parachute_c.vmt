@@ -1,7 +1,7 @@
 "VertexLitGeneric"
 {
 	"$baseTexture" "jessev92/bf2\parachute_c"
-	"$bumpmap" "jessev92/bf2\parachute_n"
+	
 	"$halflambert" 1
 	"$phong" "1"
 	"$phongexponent" "10"
