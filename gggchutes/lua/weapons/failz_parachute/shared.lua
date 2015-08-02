@@ -53,7 +53,7 @@ SWEP.Primary.BumpBackup		= 4.00 -- Keep the same as BUMP. Only used after SWEP.P
 SWEP.Primary.WalkingBump	= 4.000	-- Bump to use while walking. I recommend setting this fairly high as it seems to be less noticable compared to ducking and regular bump.
 SWEP.Primary.DuckingBump	= 1.500 -- Bump to use while crouching.
 SWEP.Primary.AimingBump		= 1.00 -- THIS should be what you want to change to make ironsights more accurate.
-SWEP.Primary.Delay			= 3
+SWEP.Primary.Delay			= 0.5
 SWEP.Primary.ClipSize		= 1		
 SWEP.Primary.DefaultClip	= 2
 SWEP.Primary.Tracer			= 5		
@@ -128,18 +128,18 @@ function makeachute(ply)
 	if SERVER then
 	pararemove()
 	local arrowmodel = "models/jessev92/bf2/parachute.mdl"
-	mag = ents.Create ("prop_physics");
-	mag:SetModel(arrowmodel)
+	local mag2 = ents.Create ("prop_physics");
+	mag2:SetModel(arrowmodel)
 	--local magpos = Vector(ply:EyePos().x , ply:EyePos().y, (ply:EyePos().z-5))
-	mag:SetPos(ply:GetPos());
-	mag:SetAngles (Angle(0,ply:EyeAngles().y,0));
+	mag2:SetPos(ply:GetPos());
+	mag2:SetAngles (Angle(0,ply:EyeAngles().y,0));
 	--mag:SetModel(self.Magazine)
-	mag:Spawn();
-	mag:SetOwner(ply);
-	mag:SetParent(ply);
-	local phys = mag:GetPhysicsObject();
-	if (!IsValid( phys )) then ent:Remove() return end
-	table.insert(chutetable, mag)
+	mag2:Spawn();
+	mag2:SetOwner(ply);
+	mag2:SetParent(ply);
+	local phys = mag2:GetPhysicsObject();
+	if (!IsValid( phys )) then mag2:Remove() return end
+	table.insert(chutetable, mag2)
 	
 	local playerorig = ply
 	
@@ -192,16 +192,16 @@ function SWEP:Think()
 		pararemove()
 	end
 	
-	for k, v in pairs( chutetable ) do
-		if v:IsValid() then
-			v.Owner:SetVelocity(v.Owner:GetForward() * 1.7 + Vector(0,0,math.abs(v.Owner:GetVelocity().z)*.03))
-		end
-	end
-	/*
+	
 	if chute == 1 and self.Owner:IsOnGround() == false then
 		self.Owner:SetVelocity(self.Owner:GetForward() * 2 + Vector(0,0,math.abs(self.Owner:GetVelocity().z)*.03))
 	end
-	*/
+	
+	if SERVER then
+		self:NextThink( CurTime() + 0.01 )
+		return true
+	end
+	
 end
 
 
