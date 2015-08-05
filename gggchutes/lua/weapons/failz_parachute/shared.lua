@@ -36,7 +36,7 @@ SWEP.ViewModelFlip		= false
 SWEP.HoldType			= "normal"
 SWEP.HoldTypeBackup		= "normal"
 SWEP.ViewModelFOV 		= 60
-SWEP.LuaFileName		= "fzcss_XM1014"
+SWEP.LuaFileName		= ""
 SWEP.guntext			= ""
 
 SWEP.Primary.Sound			= ""	
